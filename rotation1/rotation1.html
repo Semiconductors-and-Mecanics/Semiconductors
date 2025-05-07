@@ -1,43 +1,42 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unidirecționalitatea 1</title>
-  <link rel="stylesheet" href="style_rotation1.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semiconductor Circuit Simulator</title>
+    <link rel="stylesheet" href="rotation1.css">
 </head>
 <body>
-  <h1>Exerciții cu simulări ale<br><span>Semiconductorilor</span></h1>
 
-  <div class="container">
-    <a href="efect-temperatura.html" class="box">
-      <div>Efectul temperaturii</div>
-      <img src="place_holder.jpg" alt="">
-    </a>
-    <a href="unidirectionalitate.html" class="box">
-      <div>Unidirecționalitatea</div>
-      <img src="place_holder.jpg" alt="">
-    </a>
-    <a href="efect-hall.html" class="box">
-      <div>Efectul Hall</div>
-      <img src="place_holder.jpg" alt="">
-    </a>
-    <a href="dopare.html" class="box">
-      <div>Dopare</div>
-      <img src="place_holder.jpg" alt="">
-    </a>
-    <a href="poarta-si.html" class="box">
-      <div>Poarta ȘI</div>
-      <img src="place_holder.jpg" alt="">
-    </a>
-    <a href="poarta-sau.html" class="box">
-      <div>Poarta SAU</div>
-      <img src="place_holder.jpg" alt="">
-    </a>
-    <a href="poarta-sau.html" class="box">
-        <div>Poarta SAU</div>
-        <img src="place_holder.jpg" alt="">
-    </a>
-  </div>
+    <div class="circuit-container" id="circuitContainer">
+        <div class="component battery" id="battery">
+            <div class="battery-positive">+</div>
+            <div class="battery-negative">-</div>
+        </div>
+
+        <div class="component semiconductor" id="semiconductor">
+            <div class="semiconductor-line-indicator" id="semiconductorIndicator"></div>
+        </div>
+
+        <div class="component lightbulb" id="lightbulb"></div>
+
+        <div class="wire" id="wire1a"></div>
+        <div class="wire" id="wire1b"></div>
+
+        <div class="wire" id="wire2a"></div>
+        <div class="wire" id="wire2b"></div>
+
+        <div class="wire" id="wire3a"></div>
+        <div class="wire" id="wire3b"></div>
+        <div class="wire" id="wire3c"></div>
+    </div>
+
+    <div class="controls">
+        <p>Apasă se semiconductor (deptunghiul cu o linie pe el) pentru a-l roti.</p>
+        <p>Rotația semiconductorului: <span id="rotationDisplay">0°</span></p>
+        <p>Status al curentului: <span id="currentStatus">Circulă</span></p>
+    </div>
+
+    <script src="rotation1.js" defer></script>
 </body>
 </html>
