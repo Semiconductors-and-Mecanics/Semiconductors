@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semiconductor Circuit Simulator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="circuit-container">
+    <div class="component battery" id="battery1"></div>
+    <div class="component semiconductor" id="semiconductor1">
+      <div class="semiconductor-line-indicator" id="semiconductorIndicator1"></div>
+    </div>
+    <div class="component semiconductor" id="semiconductor2">
+      <div class="semiconductor-line-indicator" id="semiconductorIndicator2"></div>
+    </div>
+    <div class="component semiconductor" id="semiconductor3">
+      <div class="semiconductor-line-indicator" id="semiconductorIndicator3"></div>
+    </div>
+    <div class="component semiconductor" id="semiconductor4">
+      <div class="semiconductor-line-indicator" id="semiconductorIndicator4"></div>
+    </div>
+    <div class="component lightbulb" id="bulb1"></div>
+
+    <!-- wires -->
+    <div class="wire" id="wire1a"></div>
+    <div class="wire" id="wire1b"></div>
+    <div class="wire" id="wire_s1_s2"></div>
+    <div class="wire" id="wire_s2_s3"></div>
+    <div class="wire" id="wire_s3_s4"></div>
+    <div class="wire" id="wire_s4_bulb"></div>
+    <div class="wire" id="wire2a_new"></div>
+    <div class="wire" id="wire2b_new"></div>
+    <div class="wire" id="wire3a_new"></div>
+    <div class="wire" id="wire3b_new"></div>
+  </div>
+
+  <div class="controls">
+    <p>Semiconductor 1 Rotation: <span id="rotationDisplay1">0°</span></p>
+    <p>Semiconductor 2 Rotation: <span id="rotationDisplay2">0°</span></p>
+    <p>Semiconductor 3 Rotation: <span id="rotationDisplay3">0°</span></p>
+    <p>Semiconductor 4 Rotation: <span id="rotationDisplay4">0°</span></p>
+    <p>Current Status: <span id="currentStatus">Blocked</span></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

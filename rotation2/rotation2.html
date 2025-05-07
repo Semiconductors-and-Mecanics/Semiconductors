@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semiconductor Circuit Simulator</title>
+    <link rel="stylesheet" href="rotation2.css">
+</head>
+<body>
+
+    <div class="circuit-container" id="circuitContainer">
+        <div class="component battery" id="battery">
+            <div class="battery-positive">+</div>
+            <div class="battery-negative">-</div>
+        </div>
+
+        <div class="component semiconductor" id="semiconductor1">
+            <div class="semiconductor-line-indicator" id="semiconductorIndicator1"></div>
+        </div>
+
+        <div class="component semiconductor" id="semiconductor2">
+            <div class="semiconductor-line-indicator" id="semiconductorIndicator2"></div>
+        </div>
+
+        <div class="component lightbulb" id="lightbulb"></div>
+
+        <div class="wire" id="wire1a"></div>
+        <div class="wire" id="wire1b"></div>
+
+        <div class="wire" id="wire_s1_s2"></div>
+
+        <div class="wire" id="wire2a_new"></div>
+        <div class="wire" id="wire2b_new"></div>
+
+        <div class="wire" id="wire3a_new"></div>
+        <div class="wire" id="wire3b_new"></div>
+        <div class="wire" id="wire3c_new"></div>
+    </div>
+
+    <div class="controls">
+        <p>Apasă pe semiconductori pentru a observa ce se întâmplă.</p>
+        <p>Rotația semiconductorului din stânga: <span id="rotationDisplay1">0°</span></p>
+        <p>Rotația semiconductorului din dreapta: <span id="rotationDisplay2">0°</span></p>
+        <p>Starea curentului: <span id="currentStatus">Circulă</span></p>
+    </div>
+
+    <script src="rotation2.js" defer></script>
+</body>
+</html>
