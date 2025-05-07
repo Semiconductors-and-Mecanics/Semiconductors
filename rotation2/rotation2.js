@@ -69,8 +69,8 @@ const connections = [
 function updateCircuit() {
     // 1. Determine if current can flow through the entire circuit.
     // Current flows only if BOTH semiconductors allow it.
-    const semi1AllowsCurrent = components.semi1.rotation === 0;
-    const semi2AllowsCurrent = components.semi2.rotation === 0;
+    const semi1AllowsCurrent = components.semi1.rotation === 180;
+    const semi2AllowsCurrent = components.semi2.rotation === 180;
     const overallCurrentFlowing = semi1AllowsCurrent && semi2AllowsCurrent;
 
     // 2. Update Semiconductors' visual rotation and displays

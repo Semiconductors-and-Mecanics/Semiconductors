@@ -1,66 +1,105 @@
-// DOM elements and state already defined...
+// --- DOM Elements ---
+const semiconductorAElement = document.getElementById('semiconductorA');
+const semiconductorBElement = document.getElementById('semiconductorB');
+const lightbulbElement = document.getElementById('lightbulb');
+const rotationDisplayA = document.getElementById('rotationDisplayA');
+const rotationDisplayB = document.getElementById('rotationDisplayB');
+const currentStatusDisplay = document.getElementById('currentStatus');
 
+// --- Circuit Data (Graph-like Structure) ---
+
+// Components (Nodes)
+const components = {
+    battery1: {
+        id: 'battery',
+        type: 'battery',
+    },
+    semiA: {
+        id: 'semiconductorA', // Corresponds to HTML ID
+        type: 'semiconductor',
+        element: semiconductorAElement,
+        rotation: 0, // 0 degrees = allowing current, 180 degrees = blocking
+    },
+    semiB: {
+        id: 'semiconductorB', // Corresponds to HTML ID
+        type: 'semiconductor',
+        element: semiconductorBElement,
+        rotation: 0, // 0 degrees = allowing current, 180 degrees = blocking
+    },
+    bulb1: {
+        id: 'lightbulb', // Corresponds to HTML ID
+        type: 'lightbulb',
+        element: lightbulbElement,
+        isOn: false, // Tracks if the lightbulb should be on
+    }
+};
+
+// Connections (Edges)
+// List of wire HTML IDs for updating their appearance.
 const connections = [
-    ['battery+', 'semi1'],
-    ['semi1', 'semi2'],
-    ['semi2', 'bulb'],
-    ['bulb', 'battery-']
+    'wire1', 'wire2', 'wire3', 'wire4', 'wire5',
+    'wire6', 'wire7', 'wire8', 'wire9', 'wire10'
 ];
 
-function getGraph() {
-    // Directed graph depending on rotation
-    const graph = {
-        'battery+': ['semi1'],
-        'semi1': [],
-        'semi2': [],
-        'bulb': ['battery-'],
-        'battery-': []
-    };
 
-    if (components.semi1.rotation % 360 === 0) {
-        graph['semi1'].push('semi2');
-    }
-    if (components.semi2.rotation % 360 === 0) {
-        graph['semi2'].push('bulb');
-    }
-
-    return graph;
-}
-
-function hasPath(graph, start, end, visited = new Set()) {
-    if (start === end) return true;
-    visited.add(start);
-    for (const neighbor of graph[start] || []) {
-        if (!visited.has(neighbor)) {
-            if (hasPath(graph, neighbor, end, visited)) return true;
-        }
-    }
-    return false;
-}
+// --- Circuit Logic ---
 
 function updateCircuit() {
-    const graph = getGraph();
-    const isFlowing = hasPath(graph, 'battery+', 'battery-');
+    // 1. Determine if each semiconductor allows current
+    const semiAAllowsCurrent = components.semiA.rotation === 180;
+    const semiBAllowsCurrent = components.semiB.rotation === 0;
 
-    // Lightbulb visual update
-    components.bulb1.element.classList.toggle('on', isFlowing);
-    currentStatusDisplay.textContent = isFlowing ? 'Flowing' : 'Blocked';
+    // 2. Implement AND gate logic: Current flows to the lightbulb ONLY if BOTH semiconductors allow current.
+    const overallCurrentFlowing = semiAAllowsCurrent && semiBAllowsCurrent;
+
+    // 3. Update Semiconductor's visual rotation and display
+    components.semiA.element.style.transform = `rotate(${components.semiA.rotation}deg)`;
+    rotationDisplayA.textContent = `${components.semiA.rotation}°`;
+
+    components.semiB.element.style.transform = `rotate(${components.semiB.rotation}deg)`;
+    rotationDisplayB.textContent = `${components.semiB.rotation}°`;
+
+    // 4. Update Lightbulb state
+    components.bulb1.isOn = overallCurrentFlowing;
+    components.bulb1.element.classList.toggle('on', components.bulb1.isOn);
+
+    // 5. Update Wire states (color)
+    // Make all listed wires active if overall current is flowing.
+    connections.forEach(wireId => {
+        const wireElement = document.getElementById(wireId);
+        if (wireElement) {
+            wireElement.classList.toggle('wire-active', overallCurrentFlowing);
+            // The background-color transition is handled by the CSS class
+        }
+    });
+
+    // 6. Update Status Display
+    if (components.bulb1.isOn) {
+        currentStatusDisplay.textContent = 'Circulă';
+        currentStatusDisplay.style.color = 'green';
+    } else {
+        currentStatusDisplay.textContent = 'Blocat';
+        currentStatusDisplay.style.color = 'red';
+    }
 }
 
-function rotateSemiconductor(semiconductor, display) {
-    semiconductor.rotation = (semiconductor.rotation + 90) % 360;
-    semiconductor.element.style.transform = `rotate(${semiconductor.rotation}deg)`;
-    display.textContent = `${semiconductor.rotation}°`;
-    updateCircuit();
-}
+// --- Event Listeners ---
 
-// Event listeners
-semiconductor1Element.addEventListener('click', () => {
-    rotateSemiconductor(components.semi1, rotationDisplay1);
-});
-semiconductor2Element.addEventListener('click', () => {
-    rotateSemiconductor(components.semi2, rotationDisplay2);
+// Handle click on Semiconductor A
+components.semiA.element.addEventListener('click', () => {
+    // Toggle rotation state (0 to 180, or 180 to 0)
+    components.semiA.rotation = (components.semiA.rotation === 0) ? 180 : 0;
+    updateCircuit(); // Re-evaluate and update the entire circuit
 });
 
-// Initial state
+// Handle click on Semiconductor B
+components.semiB.element.addEventListener('click', () => {
+    // Toggle rotation state (0 to 180, or 180 to 0)
+    components.semiB.rotation = (components.semiB.rotation === 0) ? 180 : 0;
+    updateCircuit(); // Re-evaluate and update the entire circuit
+});
+
+
+// --- Initial Setup ---
+// Call updateCircuit once on page load to set the initial state
 updateCircuit();

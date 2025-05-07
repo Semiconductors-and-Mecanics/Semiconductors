@@ -61,7 +61,7 @@ const connections = [
 function updateCircuit() {
     // 1. Determine if current can flow through the entire circuit.
     // For this simple series circuit, it depends only on the semiconductor's state.
-    const semiconductorAllowsCurrent = components.semi1.rotation === 0;
+    const semiconductorAllowsCurrent = components.semi1.rotation === 180;
     const overallCurrentFlowing = semiconductorAllowsCurrent; // In a more complex circuit, this would involve checking the whole path.
 
     // 2. Update Semiconductor's visual rotation
