@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             atomDiv.textContent = 'Si';
             latticeContainer.appendChild(atomDiv);
             latticeAtoms.push({ element: atomDiv, type: 'Si', carrierVisual: null });
-        }
+        } 
         updateInfoPanel('Si');
     }
 
