@@ -1,0 +1,269 @@
+body {
+    font-family: 'Inter', sans-serif, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.circuit-container {
+    position: relative;
+    width: 450px; /* Increased width to accommodate layout */
+    height: 350px; /* Increased height */
+    background-color: #ffffff;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Component Styles --- */
+.component {
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.battery {
+    width: 40px;
+    height: 80px;
+    left: 20px;
+    top: 200px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #2d3748;
+    background-color: #4a5568;
+    border-radius: 6px;
+}
+
+.battery-positive {
+    height: 30%;
+    background-color: #facc15;
+    border-bottom: 2px solid #2d3748;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #2d3748;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.battery-negative {
+    height: 70%;
+    background-color: #2d3748;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #e2e8f0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.semiconductor {
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    background-color: #1a202c;
+    border: 2px solid #4a5568;
+    border-radius: 6px;
+}
+
+#semiconductor1 { /* Top diode */
+    left: 120px;
+    top: 70px;
+}
+
+#semiconductor2 { /* Bottom diode */
+    left: 120px;
+    top: 150px;
+}
+
+.semiconductor-line-indicator {
+    width: 6px;
+    height: 30px; /* Match parent height */
+    background-color: #e2e8f0;
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lightbulb {
+    width: 50px;
+    height: 50px;
+    left: 350px;
+    top: 110px; /* Aligned with the output merge point */
+    background-color: #a0aec0;
+    border-radius: 50%;
+    border: 3px solid #4a5568;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lightbulb.on {
+    background-color: #fef08a;
+    box-shadow: 0 0 20px #facc15, 0 0 30px #facc15;
+}
+
+/* --- Wire Styles --- */
+.wire {
+    position: absolute;
+    background-color: #718096; /* Default wire color */
+    border-radius: 1px;
+    transition: background-color 0.3s ease;
+}
+
+.wire-active {
+    background-color: #48bb78; /* Green color when current is flowing */
+}
+
+/* Wire Positioning for OR Gate */
+/* Battery: left:20, top:135. Pos exit: x=60 (20+40), y_mid_pos=135+(0.3*80/2)=147 */
+/* Neg entry: x=60, y_mid_neg=135+(0.3*80)+(0.7*80/2)=135+24+28=187 */
+
+/* Semi1 (top): left:120, top:70. Input: x=120, y_mid=70+15=85. Output: x=200, y_mid=85 */
+/* Semi2 (bot): left:120, top:150. Input: x=120, y_mid=150+15=165. Output: x=200, y_mid=165 */
+
+/* Lightbulb: left:350, top:110. Input: x=350, y_mid=110+25=135. Output: x_mid=375, y=110+50=160 */
+
+/* Junction points: */
+/* Y-Split (input): x=90, y_s1_in=85, y_s2_in=165. Let's use a common vertical wire for split. */
+/* Merge (output): x=280 (example), y_bulb_in=135 */
+
+/* Path from Battery to Split Point */
+#wire_bat_pos_out_v { /* Vertical from battery positive terminal mid */
+    left: 38px; /* 60 - 4/2 */
+    top: 130px;  /* Align with S1 input Y */
+    width: 4px;
+    height: 70px; /* 147 (bat_pos_y) - 85 (s1_y) + a bit to connect to horizontal */
+}
+#wire_bat_pos_out_h { /* Horizontal from top of vertical wire to split point before S1/S2 line */
+    left: 38px;
+    top: 130px; /* 85 - 4/2 */
+    width: 60px; /* 120 (s1_left) - 60 */
+    height: 4px;
+}
+
+/* Path 1 (to Semiconductor 1 input) */
+#wire_split_to_s1_v { /* Connects from end of wire_bat_pos_out_h to S1 */
+    left: 98px; /* 120 - 4/2, aligned with S1/S2 left edges */
+    top: 85px;   /* S1 input Y */
+    width: 4px;
+    height: 45px; /* 165 (s2_y) - 85 (s1_y) */
+}
+
+#wire_split_to_s1_h { /* Connects from end of wire_bat_pos_out_h to S1 */
+    left: 98px; /* 120 - 4/2, aligned with S1/S2 left edges */
+    top: 85px;   /* S1 input Y */
+    width: 22px;
+    height: 4px; /* 165 (s2_y) - 85 (s1_y) */
+}
+
+/* Path 2 (to Semiconductor 2 input) */
+/* A vertical wire from the split (near S1 input line) down to S2 input line */
+#wire_split_to_s2_v { /* Vertical wire from the main input line down to S2 input level */
+    left: 98px; /* 120 - 4/2, aligned with S1/S2 left edges */
+    top: 130px;   /* S1 input Y */
+    width: 4px;
+    height: 35px; /* 165 (s2_y) - 85 (s1_y) */
+}
+
+#wire_split_to_s2_h { /* Vertical wire from the main input line down to S2 input level */
+    left: 98px; /* 120 - 4/2, aligned with S1/S2 left edges */
+    top: 165px;   /* S1 input Y */
+    width: 22px;
+    height: 4px; /* 165 (s2_y) - 85 (s1_y) */
+}
+
+
+
+/* Output from Semiconductor 1 to Merge Point */
+#wire_s1_out_to_merge_h { /* Horizontal from S1 output */
+    left: 200px; /* S1 right edge (120+80) */
+    top: 83px;  /* S1 mid_y (85) - 4/2 */
+    width: 80px; /* To merge point x=280 */
+    height: 4px;
+}
+#wire_s1_out_to_merge_v { /* Vertical from end of S1_out_h down to bulb input level */
+    left: 278px; /* merge_x (280) - 4/2 */
+    top: 83px;   /* S1 mid_y */
+    width: 4px;
+    height: 52px; /* 135 (bulb_in_y) - 85 (s1_mid_y) */
+}
+
+#wire_s2_out_to_merge_v { /* Vertical from end of S1_out_h down to bulb input level */
+    left: 278px; /* merge_x (280) - 4/2 */
+    top: 135px;   /* S1 mid_y */
+    width: 4px;
+    height: 32px; /* 135 (bulb_in_y) - 85 (s1_mid_y) */
+}
+
+/* Output from Semiconductor 2 to Merge Point */
+#wire_s2_out_to_merge_h { /* Horizontal from S2 output */
+    left: 200px; /* S2 right edge (120+80) */
+    top: 163px; /* S2 mid_y (165) - 4/2 */
+    width: 80px; /* To merge point x=280 */
+    height: 4px;
+}
+/* S2 output will merge into wire_s1_out_to_merge_v. We need a vertical segment from S2_out_h up to meet it. */
+/* Or, S2 connects to a point on wire_s1_out_to_merge_v */
+/* For simplicity, let's assume S2's output path has its own vertical segment that joins the horizontal wire to bulb */
+/* This wire will go from end of wire_s2_out_to_merge_h upwards to meet the line from S1's output path */
+/* This is tricky with static wires. Let's simplify: wire_s1_out_to_merge_v is the common vertical merge */
+
+
+/* Path from Merge Point to Lightbulb */
+#wire_merge_to_bulb_h { /* Horizontal from common merge vertical wire to bulb */
+    left: 280px; /* merge_x */
+    top: 133px;  /* bulb_in_y (135) - 4/2 */
+    width: 70px; /* 350 (bulb_left) - 280 */
+    height: 4px;
+}
+#wire_merge_to_bulb_v { /* This is effectively wire_s1_out_to_merge_v */
+    /* Let's rename wire_s1_out_to_merge_v to be the main vertical collector */
+    display: none; /* Covered by wire_s1_out_to_merge_v */
+}
+
+
+/* Path from Lightbulb to Battery Negative */
+#wire_bulb_out_h {    /* Horizontal from bulb bottom */
+    left: 38px; /* Arbitrary point for turn */
+    top: 301px; /* bulb_out_y (160) - 4/2 */
+    width: 340px; /* 375 (bulb_mid_x) - 200 */
+    height: 4px;
+}
+#wire_bulb_out_v {    /* Vertical down from end of bulb_out_h */
+    left: 374px; /* 200 - 4/2 */
+    top: 160px;
+    width: 4px;
+    height: 145px; /* 187 (bat_neg_y) - 160 */
+}
+#wire_to_bat_neg_h {  /* Horizontal to battery negative terminal */
+    left: 38px;  /* bat_neg_x */
+    top: 280px; /* bat_neg_y (187) - 4/2 */
+    width: 4px; /* 198 - 60 */
+    height: 24px;
+}
+
+
+/* Controls and Info */
+.controls {
+    margin-top: 25px;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+.controls p {
+    margin: 8px 0;
+    font-size: 1.1rem;
+    color: #2d3748;
+}

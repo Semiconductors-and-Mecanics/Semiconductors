@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OR Gate Diode Circuit Simulator</title>
+    <link rel="stylesheet" href="rotation4.css">
+</head>
+<body>
+
+    <div class="circuit-container" id="circuitContainer">
+        <div class="component battery" id="battery">
+            <div class="battery-positive">+</div>
+            <div class="battery-negative">-</div>
+        </div>
+
+        <div class="component semiconductor" id="semiconductor1">
+            <div class="semiconductor-line-indicator" id="semiconductorIndicator1"></div>
+        </div>
+
+        <div class="component semiconductor" id="semiconductor2">
+            <div class="semiconductor-line-indicator" id="semiconductorIndicator2"></div>
+        </div>
+
+        <div class="component lightbulb" id="lightbulb"></div>
+
+        <div class="wire" id="wire_bat_pos_out_v"></div>
+        <div class="wire" id="wire_bat_pos_out_h"></div>
+        <div class="wire" id="wire_split_to_s1_v"></div>
+        <div class="wire" id="wire_split_to_s1_h"></div>
+        <div class="wire" id="wire_split_to_s2_v"></div>
+        <div class="wire" id="wire_split_to_s2_h"></div>
+        <div class="wire" id="wire_s1_out_to_merge_h"></div>
+        <div class="wire" id="wire_s1_out_to_merge_v"></div>
+        <div class="wire" id="wire_s2_out_to_merge_v"></div>
+        <div class="wire" id="wire_s2_out_to_merge_h"></div>
+        <div class="wire" id="wire_merge_to_bulb_h"></div>
+        <div class="wire" id="wire_merge_to_bulb_v"></div>
+        <div class="wire" id="wire_bulb_out_h"></div>
+        <div class="wire" id="wire_bulb_out_v"></div>
+        <div class="wire" id="wire_to_bat_neg_h"></div>
+    
+    </div>
+
+    <div class="controls">
+        <p>Click semiconductors to rotate them (diodes).</p>
+        <p>Diode 1 (Top) Rotation: <span id="rotationDisplay1">0°</span></p>
+        <p>Diode 2 (Bottom) Rotation: <span id="rotationDisplay2">0°</span></p>
+        <p>Lightbulb Status: <span id="currentStatus">OFF</span></p>
+    </div>
+
+    <script src="rotation4.js" defer></script>
+</body>
+</html>
