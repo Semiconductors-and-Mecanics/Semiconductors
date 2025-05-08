@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semiconductor Doping Simulator</title>
+    <link rel="stylesheet" href="dope1.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Semiconductor Doping Simulator</h1>
+            <p>Visualize P-type and N-type doping in a silicon crystal lattice.</p>
+        </header>
+
+        <div class="controls-panel">
+            <button id="addPTypeBtn">Add P-type Dopant (e.g., Boron)</button>
+            <button id="addNTypeBtn">Add N-type Dopant (e.g., Phosphorus)</button>
+            <button id="resetBtn">Reset Lattice</button>
+        </div>
+
+        <div class="simulation-area">
+            <div class="lattice-container" id="latticeContainer">
+                </div>
+            <div class="info-panel" id="infoPanel">
+                <h2>Pure Silicon (Intrinsic)</h2>
+                <p>
+                    This is a simplified 2D representation of a silicon crystal lattice.
+                    Each silicon (Si) atom has 4 valence electrons and forms 4 covalent bonds
+                    with its neighbors. In a pure crystal, there are very few free charge carriers.
+                </p>
+                <p>Click the buttons above to add dopant atoms.</p>
+            </div>
+        </div>
+
+        <nav class="navigation-links">
+            <a href="/index.html">Înapoi la pagina principală</a>
+        </nav>
+
+        <footer>
+            <p>Semiconductor Simulations</p>
+        </footer>
+    </div>
+
+    <script src="dope1.js" defer></script>
+</body>
+</html>

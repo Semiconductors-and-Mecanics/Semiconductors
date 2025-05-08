@@ -1,0 +1,260 @@
+body {
+    font-family: 'Inter', sans-serif, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e9eef2; /* Lighter background for this page */
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    margin-top: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #dde4eb;
+    padding-bottom: 20px;
+}
+
+header h1 {
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #555;
+    font-size: 1.1em;
+}
+
+.controls-panel {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.controls-panel button {
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.controls-panel button:hover {
+    transform: translateY(-1px);
+}
+
+.controls-panel button:active {
+    transform: translateY(0px);
+}
+
+#addPTypeBtn {
+    background-color: #e74c3c; /* Reddish for P-type (holes are positive-like) */
+}
+#addPTypeBtn:hover {
+    background-color: #c0392b;
+}
+
+#addNTypeBtn {
+    background-color: #3498db; /* Bluish for N-type (electrons are negative) */
+}
+#addNTypeBtn:hover {
+    background-color: #2980b9;
+}
+
+#resetBtn {
+    background-color: #7f8c8d; /* Neutral gray */
+}
+#resetBtn:hover {
+    background-color: #606f70;
+}
+
+
+.simulation-area {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 30px;
+    max-height: 433px;
+}
+
+.lattice-container {
+    flex: 2; /* Lattice takes more space */
+    display: grid;
+    /* Grid columns will be set by JS based on lattice_cols */
+    gap: 5px;
+    padding: 15px;
+    background-color: #f0f4f8; /* Light blue grid background, like the image */
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    aspect-ratio: 1.5 / 1; /* Maintain a certain aspect ratio */
+    min-height: 300px;
+}
+
+.atom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 0.9em; /* Adjusted for smaller circles */
+    color: white;
+    position: relative; /* For positioning charge carriers */
+    min-width: 30px; /* Ensure minimum size */
+    min-height: 30px;
+    padding: 5px; /* Ensure text fits */
+    box-sizing: border-box;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+}
+
+.silicon {
+    background-color: #7f8c8d; /* Silicon - neutral gray */
+}
+
+.p-type {
+    background-color: #c0392b; /* Dopant P - reddish */
+}
+
+.n-type {
+    background-color: #2980b9; /* Dopant N - bluish */
+}
+
+.hole, .electron {
+    position: absolute;
+    border-radius: 50%;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.hole {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border: 2px solid #ffffff; /* White circle representing a hole */
+    /* Positioned slightly off-center to suggest an empty spot */
+    top: 50%;
+    left: 50%;
+    transform: translate(-120%, -120%);
+}
+
+.electron {
+    width: 8px;
+    height: 8px;
+    background-color: #f1c40f; /* Yellowish dot for electron */
+    /* Positioned slightly off-center */
+    top: 30%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 3px #f1c40f;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.5) translate(-50%, -50%); }
+    to { opacity: 1; transform: scale(1) translate(-50%, -50%); } /* Adjust translate if needed */
+}
+/* Adjusting keyframes for hole and electron positioning */
+@keyframes fadeInHole {
+    from { opacity: 0; transform: scale(0.5) translate(-120%, -120%); }
+    to { opacity: 1; transform: scale(1) translate(-120%, -120%); }
+}
+@keyframes fadeInElectron {
+    from { opacity: 0; transform: scale(0.5) translate(-50%, -50%); }
+    to { opacity: 1; transform: scale(1) translate(-50%, -50%); }
+}
+.hole { animation: fadeInHole 0.5s ease-in-out; }
+.electron { animation: fadeInElectron 0.5s ease-in-out; }
+
+
+.info-panel {
+    flex: 1; /* Info panel takes less space */
+    padding: 20px;
+    background-color: #fdfdfe;
+    border: 1px solid #e1e8f0;
+    border-radius: 8px;
+    font-size: 0.95em;
+    line-height: 1.6;
+    overflow-y: scroll;
+}
+
+.info-panel h2 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e1e8f0;
+    padding-bottom: 10px;
+}
+
+.info-panel p {
+    margin-bottom: 10px;
+}
+
+.navigation-links {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #dde4eb;
+}
+
+.navigation-links a {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.navigation-links a:hover {
+    background-color: #3498db;
+    color: #fff;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #dde4eb;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .simulation-area {
+        flex-direction: column;
+    }
+    .lattice-container {
+        aspect-ratio: auto;
+        min-height: 250px; /* Adjust for smaller screens */
+    }
+    .controls-panel {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .controls-panel button {
+        width: 100%;
+    }
+    header h1 {
+        font-size: 1.8em;
+    }
+    header p {
+        font-size: 1em;
+    }
+}
