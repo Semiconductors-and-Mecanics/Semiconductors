@@ -111,11 +111,11 @@ body {
 /* Specific background images for junction states */
 /* Replace with your actual image paths */
 #semiconductorJunctionFlow {
-    content: url('/diodes/neutral.png'); /* Placeholder - replace with your "flow" image */
+    content: url('diodes/neutral.png'); /* Placeholder - replace with your "flow" image */
 }
 
 #semiconductorJunctionStop {
-    background-image: url('/diodes/empty_center.png'); /* Placeholder - replace with your "stop" image */
+    background-image: url('diodes/empty_center.png'); /* Placeholder - replace with your "stop" image */
 }
 
 /* Class to make a junction view visible */
