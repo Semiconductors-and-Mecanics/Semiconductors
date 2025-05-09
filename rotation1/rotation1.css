@@ -19,6 +19,7 @@ body {
     border: 2px solid #cbd5e1;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Added margin to separate from controls */
 }
 
 /* --- Component Styles --- */
@@ -67,14 +68,15 @@ body {
 .semiconductor {
     width: 80px;
     height: 30px;
-    left: 160px;
-    top: 40px;
+    left: 160px; /* Position of the main semiconductor */
+    top: 40px;   /* Position of the main semiconductor */
     cursor: pointer;
     transition: transform 0.5s ease-in-out;
     display: flex;
     align-items: center;
-    background-color: #1a202c;
+    background-color: #1a202c; /* Base semiconductor color */
     border-radius: 4px;
+    z-index: 1; /* Ensure it's below the junction views if they overlap */
 }
 
 .semiconductor-line-indicator {
@@ -86,6 +88,42 @@ body {
     top: 50%;
     transform: translateY(-50%);
 }
+
+/* Styles for the junction overlay divs */
+.semiconductor-junction {
+    width: 80px;  /* Same as semiconductor */
+    height: 30px; /* Same as semiconductor */
+    left: 160px;  /* Same as semiconductor to overlap */
+    top: 40px;    /* Same as semiconductor to overlap */
+    position: absolute; /* Necessary for precise positioning */
+    background-size: contain; /* Or 'cover' depending on image aspect ratio */
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 4px; /* Match semiconductor's border-radius */
+    pointer-events: none; /* Allows clicks to pass through to the semiconductor underneath */
+    visibility: hidden; /* Initially hidden */
+    z-index: 5; /* Ensure they are on top of the base semiconductor */
+    transition: transform 0.5s ease-in-out; /* For smooth show/hide if using opacity */
+    opacity: 0;
+    background-size: auto;
+}
+
+/* Specific background images for junction states */
+/* Replace with your actual image paths */
+#semiconductorJunctionFlow {
+    content: url('/diodes/neutral.png'); /* Placeholder - replace with your "flow" image */
+}
+
+#semiconductorJunctionStop {
+    background-image: url('/diodes/empty_center.png'); /* Placeholder - replace with your "stop" image */
+}
+
+/* Class to make a junction view visible */
+.junction-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
 
 .lightbulb {
     width: 50px;
@@ -115,29 +153,14 @@ body {
     background-color: #48bb78; /* Green color when current is flowing */
 }
 
-/* Wire positioning (calculated based on component positions and sizes) */
-/* These remain the same as your previous correct version */
-#wire1a {
-    left: 48px; top: 52px; width: 113px; height: 4px;
-}
-#wire1b {
-    left: 48px; top: 52px; width: 4px; height: 59px;
-}
-#wire2a {
-    left: 333px; top: 55px; width: 4px; height: 70px;
-}
-#wire2b {
-    left: 240px; top: 52px; width: 97px; height: 4px;
-}
-#wire3a {
-    left: 48px; top: 200px; width: 289px; height: 4px;
-}
-#wire3b {
-    left: 48px; top: 190px; width: 4px; height: 12px;
-}
-#wire3c {
-    left: 333px; top: 175px; width: 4px; height: 27px;
-}
+/* Wire positioning */
+#wire1a { left: 48px; top: 52px; width: 113px; height: 4px; }
+#wire1b { left: 48px; top: 52px; width: 4px; height: 59px; }
+#wire2a { left: 333px; top: 55px; width: 4px; height: 70px; }
+#wire2b { left: 240px; top: 52px; width: 97px; height: 4px; }
+#wire3a { left: 48px; top: 200px; width: 289px; height: 4px; }
+#wire3b { left: 48px; top: 190px; width: 4px; height: 12px; }
+#wire3c { left: 333px; top: 175px; width: 4px; height: 27px; }
 
 /* Controls and Info */
 .controls {
@@ -152,4 +175,18 @@ body {
     margin: 8px 0;
     font-size: 1.1rem;
     color: #2d3748;
+}
+.controls button {
+    background-color: #4a5568;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
+}
+.controls button:hover {
+    background-color: #2d3748;
 }

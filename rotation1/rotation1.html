@@ -18,6 +18,9 @@
             <div class="semiconductor-line-indicator" id="semiconductorIndicator"></div>
         </div>
 
+        <div class="component semiconductor-junction" id="semiconductorJunctionFlow"></div>
+        <div class="component semiconductor-junction" id="semiconductorJunctionStop"></div>
+
         <div class="component lightbulb" id="lightbulb"></div>
 
         <div class="wire" id="wire1a"></div>
@@ -32,9 +35,11 @@
     </div>
 
     <div class="controls">
-        <p>Apasă se semiconductor (deptunghiul cu o linie pe el) pentru a-l roti.</p>
+        <p>Apasă pe semiconductor (dreptunghiul cu o linie pe el) pentru a-l roti.</p>
         <p>Rotația semiconductorului: <span id="rotationDisplay">0°</span></p>
         <p>Status al curentului: <span id="currentStatus">Circulă</span></p>
+        <button id="toggleJunctionViewButton">Arată/Ascunde Detalii Joncțiune</button>
+        <p>Vedere Joncțiune: <span id="junctionViewStatus">Ascunsă</span></p>
     </div>
 
     <script src="rotation1.js" defer></script>

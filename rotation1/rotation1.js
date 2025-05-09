@@ -3,66 +3,50 @@ const semiconductorElement = document.getElementById('semiconductor');
 const lightbulbElement = document.getElementById('lightbulb');
 const rotationDisplay = document.getElementById('rotationDisplay');
 const currentStatusDisplay = document.getElementById('currentStatus');
+const toggleJunctionViewButton = document.getElementById('toggleJunctionViewButton');
+const semiconductorJunctionFlowElement = document.getElementById('semiconductorJunctionFlow');
+const semiconductorJunctionStopElement = document.getElementById('semiconductorJunctionStop');
+const junctionViewStatusDisplay = document.getElementById('junctionViewStatus');
 
 // --- Circuit Data (Graph-like Structure) ---
-
-// Components (Nodes)
-// We store a reference to the HTML element for easier manipulation if needed,
-// and state variables like rotation for semiconductors.
 const components = {
     battery1: {
-        id: 'battery', // Corresponds to HTML ID
+        id: 'battery',
         type: 'battery',
-        // Batteries don't have a dynamic state in this simulation other than being a power source.
     },
     semi1: {
-        id: 'semiconductor', // Corresponds to HTML ID
+        id: 'semiconductor',
         type: 'semiconductor',
         element: semiconductorElement,
-        rotation: 0, // 0 degrees = allowing current, 180 degrees = blocking
+        rotation: 0, // 0 degrees = original state (let's say allows current if not reversed biased by default)
+                     // 180 degrees = rotated state (blocks current if it's a diode)
+        isJunctionViewVisible: false, // Tracks if the junction detail is shown
     },
     bulb1: {
-        id: 'lightbulb', // Corresponds to HTML ID
+        id: 'lightbulb',
         type: 'lightbulb',
         element: lightbulbElement,
-        isOn: false, // Tracks if the lightbulb should be on
+        isOn: false,
     }
 };
 
 // Connections (Edges)
-// Each object represents a logical connection between two components.
-// 'wires' is an array of HTML IDs for the div elements that visually form this connection.
 const connections = [
-    {
-        id: 'conn1', // Battery to Semiconductor
-        from: 'battery1', // ID from 'components' object
-        to: 'semi1',      // ID from 'components' object
-        wires: ['wire1a', 'wire1b'], // HTML IDs of wire segments
-        currentFlowing: false
-    },
-    {
-        id: 'conn2', // Semiconductor to Lightbulb
-        from: 'semi1',
-        to: 'bulb1',
-        wires: ['wire2a', 'wire2b'],
-        currentFlowing: false
-    },
-    {
-        id: 'conn3', // Lightbulb back to Battery (completing the circuit)
-        from: 'bulb1',
-        to: 'battery1', // Logically connects to the negative terminal of the battery
-        wires: ['wire3a', 'wire3b','wire3c'],
-        currentFlowing: false
-    }
+    { id: 'conn1', from: 'battery1', to: 'semi1', wires: ['wire1a', 'wire1b'], currentFlowing: false },
+    { id: 'conn2', from: 'semi1', to: 'bulb1', wires: ['wire2a', 'wire2b'], currentFlowing: false },
+    { id: 'conn3', from: 'bulb1', to: 'battery1', wires: ['wire3a', 'wire3b', 'wire3c'], currentFlowing: false }
 ];
 
 // --- Circuit Logic ---
 
 function updateCircuit() {
-    // 1. Determine if current can flow through the entire circuit.
-    // For this simple series circuit, it depends only on the semiconductor's state.
-    const semiconductorAllowsCurrent = components.semi1.rotation === 180;
-    const overallCurrentFlowing = semiconductorAllowsCurrent; // In a more complex circuit, this would involve checking the whole path.
+    // 1. Determine if current can flow through the semiconductor.
+    // For a simple diode simulation:
+    // Rotation 0: Current flows (forward biased - assuming battery is connected correctly for this)
+    // Rotation 180: Current blocked (reverse biased)
+    // The provided code implies current flows at 180 and is blocked at 0. Let's stick to that for consistency with original logic.
+    const semiconductorAllowsCurrent = components.semi1.rotation === 180; // Current flows when rotated to 180 deg
+    const overallCurrentFlowing = semiconductorAllowsCurrent;
 
     // 2. Update Semiconductor's visual rotation
     components.semi1.element.style.transform = `rotate(${components.semi1.rotation}deg)`;
@@ -74,7 +58,6 @@ function updateCircuit() {
 
     // 4. Update Wire states (color)
     connections.forEach(conn => {
-        // In this simple series circuit, if overall current is flowing, all connections are active.
         conn.currentFlowing = overallCurrentFlowing;
         conn.wires.forEach(wireId => {
             const wireElement = document.getElementById(wireId);
@@ -92,17 +75,53 @@ function updateCircuit() {
         currentStatusDisplay.textContent = 'Blocat';
         currentStatusDisplay.style.color = 'red';
     }
+
+    // 6. Update Semiconductor Junction View
+    updateJunctionView(overallCurrentFlowing);
 }
+
+function updateJunctionView(isCurrentFlowing) {
+    if (components.semi1.isJunctionViewVisible) {
+        junctionViewStatusDisplay.textContent = 'Afișată';
+        if (isCurrentFlowing) {
+            semiconductorJunctionFlowElement.classList.add('junction-visible');
+            semiconductorJunctionStopElement.classList.remove('junction-visible');
+        } else {
+            semiconductorJunctionFlowElement.classList.remove('junction-visible');
+            semiconductorJunctionStopElement.classList.add('junction-visible');
+        }
+        // Also, rotate the junction view if the semiconductor itself is rotated
+        
+        const rotation = components.semi1.rotation;
+        semiconductorJunctionFlowElement.style.transform = `rotate(${rotation}deg)`;
+        semiconductorJunctionStopElement.style.transform = `rotate(${rotation}deg)`;
+
+    } else {
+        junctionViewStatusDisplay.textContent = 'Ascunsă';
+        semiconductorJunctionFlowElement.classList.remove('junction-visible');
+        semiconductorJunctionStopElement.classList.remove('junction-visible');
+        const rotation = components.semi1.rotation;
+        semiconductorJunctionFlowElement.style.transform = `rotate(${rotation}deg)`;
+        semiconductorJunctionStopElement.style.transform = `rotate(${rotation}deg)`;
+    }
+}
+
 
 // --- Event Listeners ---
 
-// Handle click on the semiconductor
+// Handle click on the semiconductor to rotate it
 components.semi1.element.addEventListener('click', () => {
-    // Toggle rotation state of the semiconductor
     components.semi1.rotation = (components.semi1.rotation === 0) ? 180 : 0;
-    updateCircuit(); // Re-evaluate and update the entire circuit
+    updateCircuit();
+});
+
+// Handle click on the "Toggle Junction View" button
+toggleJunctionViewButton.addEventListener('click', () => {
+    components.semi1.isJunctionViewVisible = !components.semi1.isJunctionViewVisible;
+    // We need to know the current flow state to show the correct junction view
+    const semiconductorAllowsCurrent = components.semi1.rotation === 180;
+    updateJunctionView(semiconductorAllowsCurrent); // Update the junction view based on new visibility and current flow
 });
 
 // --- Initial Setup ---
-// Call updateCircuit once on page load to set the initial state
-updateCircuit();
+updateCircuit(); // Call updateCircuit once on page load
