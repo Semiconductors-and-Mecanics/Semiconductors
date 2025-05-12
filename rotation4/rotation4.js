@@ -107,10 +107,10 @@ function updateCircuit() {
 
     // Update Status Display
     if (lightbulbShouldBeOn) {
-        currentStatusDisplay.textContent = 'ON';
+        currentStatusDisplay.textContent = 'Deschis';
         currentStatusDisplay.style.color = 'green';
     } else {
-        currentStatusDisplay.textContent = 'OFF';
+        currentStatusDisplay.textContent = 'Închis';
         currentStatusDisplay.style.color = 'red';
     }
 }

@@ -37,27 +37,35 @@ document.addEventListener('DOMContentLoaded', () => {
         let description = '';
         switch (dopantType) {
             case 'Si':
-                title = 'Pure Silicon (Intrinsic)';
+                title = 'Silicon Pur (Semiconductor Intrinsec)';
                 description = `
-                    <p>This is a pure silicon crystal lattice. Each silicon (Si) atom shares its 4 valence electrons with four neighboring atoms, forming covalent bonds.</p>
-                    <p>In an intrinsic (undoped) semiconductor, there are very few free charge carriers (electrons or holes) at room temperature. Its conductivity is low.</p>
-                    <p>Click buttons to add P-type or N-type dopants.</p>`;
-                break;
-            case 'P':
-                title = 'P-type Doping (e.g., Boron)';
-                description = `
-                    <p>P-type doping involves adding trivalent impurity atoms (like Boron, Aluminum, Gallium) to the silicon lattice. These atoms have 3 valence electrons.</p>
-                    <p>When a trivalent atom replaces a silicon atom, it can only form 3 covalent bonds, leaving one bond incomplete. This creates a "hole" – an absence of an electron.</p>
-                    <p>Holes act as positive charge carriers. An electron from a neighboring atom can move into the hole, causing the hole to appear to move in the opposite direction.</p>
-                    <p>P-type semiconductors have an abundance of holes as majority charge carriers.</p>`;
+                    <p>Aceasta este o rețea cristalină de siliciu pur. Fiecare atom de siliciu (Si) își împarte cei 4 electroni de valență cu patru atomi vecini, formând legături covalente.</p>
+                    <p>Într-un semiconductor intrinsec (nedopat), există foarte puțini purtători liberi de sarcină (electroni sau goluri) la temperatura camerei. Conductivitatea acestuia este scăzută.</p>
+                    <p>Apasă butoanele pentru a adăuga dopanți de tip P sau N.</p>`;
                 break;
             case 'N':
-                title = 'N-type Doping (e.g., Phosphorus)';
+                title = 'Dopare Tip P (ex. Bor)';
                 description = `
-                    <p>N-type doping involves adding pentavalent impurity atoms (like Phosphorus, Arsenic, Antimony) to the silicon lattice. These atoms have 5 valence electrons.</p>
-                    <p>When a pentavalent atom replaces a silicon atom, four of its valence electrons form covalent bonds with neighboring silicon atoms. The fifth electron is loosely bound and can easily become a free electron.</p>
-                    <p>This free electron can move through the lattice, contributing to electrical conductivity.</p>
-                    <p>N-type semiconductors have an abundance of free electrons as majority charge carriers.</p>`;
+                    <p>Doparea de tip P implică adăugarea de atomi impurități trivalenți (precum Bor, Aluminiu, Galiu) în rețeaua de siliciu. Acești atomi au 3 electroni de valență.</p>
+
+                    <p>Atunci când un atom trivalent înlocuiește un atom de siliciu, acesta poate forma doar 3 legături covalente, lăsând una incompletă. Acest lucru creează un „gol” – o absență a unui electron.</p>
+
+                    <p>Golurile acționează ca purtători de sarcină pozitivi. Un electron dintr-un atom vecin poate sări în acel gol, făcând ca golul să pară că se mișcă în direcția opusă.</p>
+
+                    <p>Semiconductoarele de tip P au o abundență de goluri ca purtători majoritari de sarcină.</p>
+                    `;
+                break;
+            case 'P':
+                title = 'Dopare Tip N (ex. Fosfor)';
+                description = `
+                    <p>Doparea de tip N implică adăugarea de atomi impurități pentavalenți (precum Fosfor, Arsen, Stibiu) în rețeaua de siliciu. Acești atomi au 5 electroni de valență.</p>
+
+                    <p>Atunci când un atom pentavalent înlocuiește un atom de siliciu, patru dintre electronii săi de valență formează legături covalente cu atomii de siliciu vecini. Al cincilea electron este slab legat și poate deveni cu ușurință un electron liber.</p>
+
+                    <p>Acest electron liber se poate deplasa prin rețea, contribuind la conductivitatea electrică.</p>
+
+                    <p>Semiconductoarele de tip N au o abundență de electroni liberi ca purtători majoritari de sarcină.</p>
+`;
                 break;
         }
         infoPanel.innerHTML = `<h2>${title}</h2>${description}`;
