@@ -8,40 +8,86 @@
 </head>
 <body>
 
-    <div class="circuit-container" id="circuitContainer">
-        <div class="component battery" id="battery">
-            <div class="battery-positive">+</div>
-            <div class="battery-negative">-</div>
+    <div class = "simulation">
+        <div class="circuit-container" id="circuitContainer">
+            <div class="component battery" id="battery">
+                <div class="battery-positive">+</div>
+                <div class="battery-negative">-</div>
+            </div>
+
+            <div class="component semiconductor" id="semiconductor1">
+                <div class="semiconductor-line-indicator" id="semiconductorIndicator1"></div>
+            </div>
+
+            <div class="component semiconductor" id="semiconductor2">
+                <div class="semiconductor-line-indicator" id="semiconductorIndicator2"></div>
+            </div>
+
+            <div class="component lightbulb" id="lightbulb"></div>
+
+            <div class="wire" id="wire1a"></div>
+            <div class="wire" id="wire1b"></div>
+
+            <div class="wire" id="wire_s1_s2"></div>
+
+            <div class="wire" id="wire2a_new"></div>
+            <div class="wire" id="wire2b_new"></div>
+
+            <div class="wire" id="wire3a_new"></div>
+            <div class="wire" id="wire3b_new"></div>
+            <div class="wire" id="wire3c_new"></div>
         </div>
 
-        <div class="component semiconductor" id="semiconductor1">
-            <div class="semiconductor-line-indicator" id="semiconductorIndicator1"></div>
+        <div class="controls">
+            <p>Apasă pe semiconductori pentru a observa ce se întâmplă.</p>
+            <p>Rotația semiconductorului din stânga: <span id="rotationDisplay1">0°</span></p>
+            <p>Rotația semiconductorului din dreapta: <span id="rotationDisplay2">0°</span></p>
+            <p>Starea curentului: <span id="currentStatus">Circulă</span></p>
         </div>
-
-        <div class="component semiconductor" id="semiconductor2">
-            <div class="semiconductor-line-indicator" id="semiconductorIndicator2"></div>
-        </div>
-
-        <div class="component lightbulb" id="lightbulb"></div>
-
-        <div class="wire" id="wire1a"></div>
-        <div class="wire" id="wire1b"></div>
-
-        <div class="wire" id="wire_s1_s2"></div>
-
-        <div class="wire" id="wire2a_new"></div>
-        <div class="wire" id="wire2b_new"></div>
-
-        <div class="wire" id="wire3a_new"></div>
-        <div class="wire" id="wire3b_new"></div>
-        <div class="wire" id="wire3c_new"></div>
     </div>
 
-    <div class="controls">
-        <p>Apasă pe semiconductori pentru a observa ce se întâmplă.</p>
-        <p>Rotația semiconductorului din stânga: <span id="rotationDisplay1">0°</span></p>
-        <p>Rotația semiconductorului din dreapta: <span id="rotationDisplay2">0°</span></p>
-        <p>Starea curentului: <span id="currentStatus">Circulă</span></p>
+    <div class = "documentation">
+        <h2>Configurarea circuitului: ambele diode orientate la 0°</h2>
+
+        <p>În această configurație, avem un circuit simplu cu o sursă de tensiune (baterie), două diode semiconductoare legate în <strong>serie</strong> și o sarcină reprezentată de un bec.</p>
+
+        <h3>Structura circuitului:</h3>
+        <ul>
+        <li><strong>Bateria:</strong> generează o tensiune continuă (DC) între borna + și -.</li>
+        <li><strong>Diodele:</strong> sunt dispozitive semiconductoare unidirecționale – permit curent doar de la <strong>anod → catod</strong>.</li>
+        <li><strong>Becul:</strong> necesită curent continuu pentru a se aprinde.</li>
+        </ul>
+
+        <h3>Legătura în serie:</h3>
+        <p>Fiind conectate în <strong>serie</strong>, diodele se comportă ca o singură "poartă" unidirecțională complexă. Curentul poate trece <strong>doar dacă ambele diode sunt polarizate direct</strong>. Dacă <em>chiar și una</em> este polarizată invers, întregul curent este blocat – ca într-un lanț unde o singură verigă ruptă oprește totul.</p>
+
+        <h3>Analiza configurației actuale:</h3>
+        <p>Ambele diode sunt orientate la <strong>0°</strong>, ceea ce înseamnă că ambele au catodul (linia albă) spre dreapta. Astfel:</p>
+
+        <ol>
+        <li>Curentul iese din borna pozitivă a bateriei și întâlnește <strong>dioda din stânga</strong>. Aici, borna pozitivă este conectată la catod, iar borna negativă la anod → <strong>polarizare inversă</strong>.</li>
+        <li>Chiar dacă <strong>dioda din dreapta</strong> ar fi polarizată direct (ceea ce este, de fapt), nu contează. Diodele sunt în serie. <strong>Curentul este blocat complet de prima diodă</strong>.</li>
+        </ol>
+
+        <h3>Consecință fizică:</h3>
+        <p>Într-un circuit în care diodele sunt în serie, **condiția necesară și suficientă pentru curent** este ca toate diodele să fie polarizate direct. În caz contrar, <strong>curentul total I = 0 A</strong> indiferent de restul configurației.</p>
+
+        <p>În această situație, niciun electron nu ajunge să circule prin circuit, iar <strong>becul rămâne stins</strong>. Este un circuit electric "deschis" – din punct de vedere funcțional, ca și cum un cablu ar fi deconectat.</p>
+
+        <h3>Analogie intuitivă:</h3>
+        <p>Imaginează-ți că diodele sunt două uși automate care se deschid doar într-un singur sens. Dacă una dintre uși se deschide spre tine și cealaltă se deschide în sens invers, nu vei putea trece. <strong>Ambele trebuie să fie aliniate corect</strong> pentru a permite trecerea.</p>
+
+        <h3>Rezumat:</h3>
+        <ul>
+        <li><strong>Orientare diode:</strong> ambele la 0°</li>
+        <li><strong>Polarizare:</strong> ambele <strong>invers</strong> față de curentul generat de baterie</li>
+        <li><strong>Curent:</strong> blocat complet</li>
+        <li><strong>Bec:</strong> stins (fără energie)</li>
+        </ul>
+
+        <h3>Ce se întâmplă dacă rotim diodele?</h3>
+        <p>Doar când ambele diode sunt rotite la <strong>180°</strong>, astfel încât să fie <strong>ambele polarizate direct</strong>, curentul poate circula. Aceasta este <strong>singura configurație validă</strong> pentru aprinderea becului într-un astfel de circuit în serie cu două diode.</p>
+
     </div>
 
     <script src="rotation2.js" defer></script>

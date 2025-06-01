@@ -8,38 +8,93 @@
 </head>
 <body>
 
-    <div class="circuit-container" id="circuitContainer">
-        <div class="component battery" id="battery">
-            <div class="battery-positive">+</div>
-            <div class="battery-negative">-</div>
+    <div class = "simulation">
+        <div class="circuit-container" id="circuitContainer">
+            <div class="component battery" id="battery">
+                <div class="battery-positive">+</div>
+                <div class="battery-negative">-</div>
+            </div>
+
+            <div class="component semiconductor" id="semiconductor">
+                <div class="semiconductor-line-indicator" id="semiconductorIndicator"></div>
+            </div>
+
+            <div class="component semiconductor-junction" id="semiconductorJunctionFlow"></div>
+            <div class="component semiconductor-junction" id="semiconductorJunctionStop"></div>
+
+            <div class="component lightbulb" id="lightbulb"></div>
+
+            <div class="wire" id="wire1a"></div>
+            <div class="wire" id="wire1b"></div>
+
+            <div class="wire" id="wire2a"></div>
+            <div class="wire" id="wire2b"></div>
+
+            <div class="wire" id="wire3a"></div>
+            <div class="wire" id="wire3b"></div>
+            <div class="wire" id="wire3c"></div>
         </div>
 
-        <div class="component semiconductor" id="semiconductor">
-            <div class="semiconductor-line-indicator" id="semiconductorIndicator"></div>
+        <div class="controls">
+            <p>Apasă pe semiconductor (dreptunghiul cu o linie pe el) pentru a-l roti.</p>
+            <p>Rotația semiconductorului: <span id="rotationDisplay">0°</span></p>
+            <p>Status al curentului: <span id="currentStatus">Circulă</span></p>
+            <button id="toggleJunctionViewButton">Arată/Ascunde Detalii Joncțiune</button>
+            <p>Vedere Joncțiune: <span id="junctionViewStatus">Ascunsă</span></p>
         </div>
-
-        <div class="component semiconductor-junction" id="semiconductorJunctionFlow"></div>
-        <div class="component semiconductor-junction" id="semiconductorJunctionStop"></div>
-
-        <div class="component lightbulb" id="lightbulb"></div>
-
-        <div class="wire" id="wire1a"></div>
-        <div class="wire" id="wire1b"></div>
-
-        <div class="wire" id="wire2a"></div>
-        <div class="wire" id="wire2b"></div>
-
-        <div class="wire" id="wire3a"></div>
-        <div class="wire" id="wire3b"></div>
-        <div class="wire" id="wire3c"></div>
     </div>
 
-    <div class="controls">
-        <p>Apasă pe semiconductor (dreptunghiul cu o linie pe el) pentru a-l roti.</p>
-        <p>Rotația semiconductorului: <span id="rotationDisplay">0°</span></p>
-        <p>Status al curentului: <span id="currentStatus">Circulă</span></p>
-        <button id="toggleJunctionViewButton">Arată/Ascunde Detalii Joncțiune</button>
-        <p>Vedere Joncțiune: <span id="junctionViewStatus">Ascunsă</span></p>
+    <div class = "documentation">
+        <h2>Ce este o Diodă Semiconductoare?</h2>
+        <p>
+        O diodă este o componentă electronică ce permite curentului electric să treacă prin ea într-o singură direcție, acționând ca un fel de supapă unisens pentru electricitate. Această proprietate unică o face esențială în nenumărate circuite electronice, de la redresarea curentului alternativ la cel continuu, până la protejarea componentelor sensibile.
+        </p>
+
+        <hr>
+
+        <h3>Cum Funcționează? Joncțiunea P-N</h3>
+        <p>
+        Secretul diodei stă în structura sa internă, numită <strong>joncțiune P-N</strong>. Aceasta se creează prin alăturarea a două tipuri de materiale semiconductoare (de obicei siliciu) "dopate" diferit:
+        </p>
+        <ul>
+        <li>
+            <strong>Material de tip P (Pozitiv):</strong> Are un surplus de "goluri" (locuri unde ar putea fi un electron, dar nu este), care se comportă ca niște sarcini pozitive.
+        </li>
+        <li>
+            <strong>Material de tip N (Negativ):</strong> Are un surplus de electroni liberi, care poartă sarcină negativă.
+        </li>
+        </ul>
+        <p>
+        La granița dintre aceste două materiale (joncțiune), electronii din zona N difuzează în zona P pentru a umple golurile, iar golurile par să difuzeze în zona N. Acest proces creează o <strong>regiune de barare (sau de depleție)</strong>, lipsită de purtători de sarcină liberi, care acționează ca un izolator și oprește continuarea difuziei.
+        </p>
+
+        <hr>
+
+        <h3>Polarizarea Directă (Curentul Circulă) 💡</h3>
+        <p>
+        Când conectăm polul pozitiv al unei surse de tensiune (baterie) la materialul de tip P și polul negativ la materialul de tip N, dioda este în <strong>polarizare directă</strong>.
+        </p>
+        <ul>
+        <li>Polul pozitiv al bateriei respinge golurile din zona P spre joncțiune.</li>
+        <li>Polul negativ al bateriei respinge electronii din zona N spre joncțiune.</li>
+        </ul>
+        <p>
+        Dacă tensiunea aplicată este suficient de mare (de obicei ~0.7V pentru diodele de siliciu), purtătorii de sarcină înving regiunea de barare. Electronii și golurile se recombină, permițând curentului electric să curgă prin diodă și să aprindă becul din circuit, așa cum se vede în simulare când dioda este orientată corect.
+        </p>
+
+        <hr>
+
+        <h3>Polarizarea Inversă (Curentul este Blocat) 🚫</h3>
+        <p>
+        Dacă inversăm conexiunile – polul negativ al bateriei la materialul P și polul pozitiv la materialul N – dioda este în <strong>polarizare inversă</strong>.
+        </p>
+        <ul>
+        <li>Polul negativ al bateriei atrage golurile din zona P, depărtându-le de joncțiune.</li>
+        <li>Polul pozitiv al bateriei atrage electronii din zona N, depărtându-i de asemenea de joncțiune.</li>
+        </ul>
+        <p>
+        Acest lucru face ca regiunea de barare să devină și mai largă și mai puternică. Curentul electric nu mai poate trece prin diodă (cu excepția unui curent rezidual foarte mic, neglijabil în majoritatea cazurilor). În simulare, acesta este cazul în care rotești dioda la 180°, iar becul se stinge.
+        </p>
     </div>
 
     <script src="rotation1.js" defer></script>

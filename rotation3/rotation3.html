@@ -7,29 +7,52 @@
     <link rel="stylesheet" href="rotation3.css"> </head>
 <body>
 
-    <div class="circuit-container" id="circuitContainer">
-        <div class="component battery" id="battery">
-            <div class="battery-positive">+</div>
-            <div class="battery-negative">-</div>
+    <div class = "simulation">
+        <div class="circuit-container" id="circuitContainer">
+            <div class="component battery" id="battery">
+                <div class="battery-positive">+</div>
+                <div class="battery-negative">-</div>
+            </div>
+
+            <div class="component semiconductor" id="semiconductorA">
+                <div class="semiconductor-line-indicator"></div>
+            </div>
+
+            <div class="component semiconductor" id="semiconductorB">
+                <div class="semiconductor-line-indicator"></div>
+            </div>
+
+            <div class="component lightbulb" id="lightbulb"></div>
+
+            <div class="wire" id="wire1"></div> <div class="wire" id="wire2"></div> <div class="wire" id="wire3"></div> <div class="wire" id="wire4"></div> <div class="wire" id="wire5"></div> <div class="wire" id="wire6"></div> <div class="wire" id="wire7"></div> <div class="wire" id="wire8"></div> <div class="wire" id="wire9"></div> <div class="wire" id="wire10"></div> </div>
+
+        <div class="controls">
+            <p>Apasă pe semiconductori și caută configurația ce aprinde becul</p>
+            <p>Rotația semiconductorului de sus: <span id="rotationDisplayA">0°</span></p>
+            <p>Rotația semiconductorului de jos: <span id="rotationDisplayB">0°</span></p>
+            <p>Statusul curentului: <span id="currentStatus">Circulă</span></p>
         </div>
+    </div>
 
-        <div class="component semiconductor" id="semiconductorA">
-            <div class="semiconductor-line-indicator"></div>
-        </div>
+    <div class = "documentation">
+        <h2>Documentație: Funcționarea circuitului cu doi semiconductori</h2>
+        <p>În acest circuit, becul se aprinde doar când curentul electric poate circula neîntrerupt de la borna pozitivă a bateriei, prin semiconductori, și apoi înapoi la borna negativă.</p>
 
-        <div class="component semiconductor" id="semiconductorB">
-            <div class="semiconductor-line-indicator"></div>
-        </div>
+        <h3>Despre semiconductori</h3>
+        <p>Fiecare semiconductor din circuit este de tip diodă. Dioda permite curentului să treacă doar într-o anumită direcție — dinspre catod (latura cu linia albă) spre anod.</p>
+        <p>Prin rotirea semiconductorilor, modifici orientarea lor în circuit. Dacă ambii sunt orientați corect, curentul poate circula și becul se aprinde.</p>
 
-        <div class="component lightbulb" id="lightbulb"></div>
+        <h3>Configurație corectă</h3>
+        <ul>
+        <li><strong>Semiconductorul de sus:</strong> rotit la 180°</li>
+        <li><strong>Semiconductorul de jos:</strong> rotit la 0°</li>
+        </ul>
+        <p>În această configurație, ambele diode sunt orientate astfel încât să permită trecerea curentului, iar becul se aprinde.</p>
 
-        <div class="wire" id="wire1"></div> <div class="wire" id="wire2"></div> <div class="wire" id="wire3"></div> <div class="wire" id="wire4"></div> <div class="wire" id="wire5"></div> <div class="wire" id="wire6"></div> <div class="wire" id="wire7"></div> <div class="wire" id="wire8"></div> <div class="wire" id="wire9"></div> <div class="wire" id="wire10"></div> </div>
+        <h3>Experimentare</h3>
+        <p>Încearcă diferite rotații ale semiconductorilor pentru a înțelege mai bine cum funcționează diodele într-un circuit.</p>
+        <p>Dacă cel puțin o diodă este orientată greșit, curentul nu va putea circula și becul va rămâne stins.</p>
 
-    <div class="controls">
-        <p>Apasă pe semiconductori și caută configurația ce aprinde becul</p>
-        <p>Rotația semiconductorului de sus: <span id="rotationDisplayA">0°</span></p>
-        <p>Rotația semiconductorului de jos: <span id="rotationDisplayB">0°</span></p>
-        <p>Statusul curentului: <span id="currentStatus">Circulă</span></p>
     </div>
 
     <script src="rotation3.js" defer></script> </body>
