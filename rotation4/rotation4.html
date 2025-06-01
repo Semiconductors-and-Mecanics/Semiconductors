@@ -8,45 +8,66 @@
 </head>
 <body>
 
-    <div class="circuit-container" id="circuitContainer">
-        <div class="component battery" id="battery">
-            <div class="battery-positive">+</div>
-            <div class="battery-negative">-</div>
+    <div class = "simulation">
+        <div class="circuit-container" id="circuitContainer">
+            <div class="component battery" id="battery">
+                <div class="battery-positive">+</div>
+                <div class="battery-negative">-</div>
+            </div>
+
+            <div class="component semiconductor" id="semiconductor1">
+                <div class="semiconductor-line-indicator" id="semiconductorIndicator1"></div>
+            </div>
+
+            <div class="component semiconductor" id="semiconductor2">
+                <div class="semiconductor-line-indicator" id="semiconductorIndicator2"></div>
+            </div>
+
+            <div class="component lightbulb" id="lightbulb"></div>
+
+            <div class="wire" id="wire_bat_pos_out_v"></div>
+            <div class="wire" id="wire_bat_pos_out_h"></div>
+            <div class="wire" id="wire_split_to_s1_v"></div>
+            <div class="wire" id="wire_split_to_s1_h"></div>
+            <div class="wire" id="wire_split_to_s2_v"></div>
+            <div class="wire" id="wire_split_to_s2_h"></div>
+            <div class="wire" id="wire_s1_out_to_merge_h"></div>
+            <div class="wire" id="wire_s1_out_to_merge_v"></div>
+            <div class="wire" id="wire_s2_out_to_merge_v"></div>
+            <div class="wire" id="wire_s2_out_to_merge_h"></div>
+            <div class="wire" id="wire_merge_to_bulb_h"></div>
+            <div class="wire" id="wire_merge_to_bulb_v"></div>
+            <div class="wire" id="wire_bulb_out_h"></div>
+            <div class="wire" id="wire_bulb_out_v"></div>
+            <div class="wire" id="wire_to_bat_neg_h"></div>
+        
         </div>
 
-        <div class="component semiconductor" id="semiconductor1">
-            <div class="semiconductor-line-indicator" id="semiconductorIndicator1"></div>
+        <div class="controls">
+            <p>Apasă pe diode pentru a le roti.</p>
+            <p>Rotația diodei de sus: <span id="rotationDisplay1">0°</span></p>
+            <p>Rotația diodei de jos: <span id="rotationDisplay2">0°</span></p>
+            <p>Starea Becului: <span id="currentStatus">OFF</span></p>
         </div>
-
-        <div class="component semiconductor" id="semiconductor2">
-            <div class="semiconductor-line-indicator" id="semiconductorIndicator2"></div>
-        </div>
-
-        <div class="component lightbulb" id="lightbulb"></div>
-
-        <div class="wire" id="wire_bat_pos_out_v"></div>
-        <div class="wire" id="wire_bat_pos_out_h"></div>
-        <div class="wire" id="wire_split_to_s1_v"></div>
-        <div class="wire" id="wire_split_to_s1_h"></div>
-        <div class="wire" id="wire_split_to_s2_v"></div>
-        <div class="wire" id="wire_split_to_s2_h"></div>
-        <div class="wire" id="wire_s1_out_to_merge_h"></div>
-        <div class="wire" id="wire_s1_out_to_merge_v"></div>
-        <div class="wire" id="wire_s2_out_to_merge_v"></div>
-        <div class="wire" id="wire_s2_out_to_merge_h"></div>
-        <div class="wire" id="wire_merge_to_bulb_h"></div>
-        <div class="wire" id="wire_merge_to_bulb_v"></div>
-        <div class="wire" id="wire_bulb_out_h"></div>
-        <div class="wire" id="wire_bulb_out_v"></div>
-        <div class="wire" id="wire_to_bat_neg_h"></div>
-    
     </div>
 
-    <div class="controls">
-        <p>Apasă pe diode pentru a le roti.</p>
-        <p>Rotația diodei de sus: <span id="rotationDisplay1">0°</span></p>
-        <p>Rotația diodei de jos: <span id="rotationDisplay2">0°</span></p>
-        <p>Starea Becului: <span id="currentStatus">OFF</span></p>
+    <div class = "documentation">
+        <h1>Documentație pentru Simulatorul de Circuit OR Gate cu Diodă</h1>
+         <div class="info-panel" id="infoPanel">
+                <h2>Poarta SAU</h2>
+                <p> Sistemele logice combinaționale, oricât de complicate ar fi, se realizează cu porți logice elementare.
+                  O poartă logică implementează o funcție logică cu cel mult 2 intrări. </p>
+                <p> Poarta SAU are următoarea interpretare: </p> 
+              <p> -Ieșirea este adevărată (1 logic) dacă cel puțin una din intrări este adevărată (1 logic). </p>
+              <p> -Ieșirea este falsă (0 logic) dacă ambele intrări sunt false (0 logic). </p>
+            </div>
+        <p>Acest simulator permite utilizatorilor să experimenteze cu un circuit OR gate folosind diode. Utilizatorii pot roti diodele pentru a vedea cum afectează funcționarea circuitului.</p>
+        <h2>Instrucțiuni</h2>
+        <ol>
+            <li>Apasă pe diode pentru a le roti.</li>
+            <li>Observă cum se schimbă starea becului în funcție de rotația diodelor.</li>
+            <li>Starea becului este afișată în partea de jos a simulării.</li>
+        </ol>
     </div>
 
     <script src="rotation4.js" defer></script>
